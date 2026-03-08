@@ -1,0 +1,277 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Shopl 영업현황 보고서</title>
+<style>
+* { margin:0; padding:0; box-sizing:border-box; }
+body { font-family:-apple-system,'Malgun Gothic',sans-serif; background:#f5f5f5; color:#333; padding:20px; }
+.container { max-width:900px; margin:0 auto; }
+h1 { color:#1a1a1a; font-size:1.5em; margin-bottom:16px; }
+.tabs { display:flex; gap:8px; margin-bottom:20px; }
+.tab { background:#e0e0e0; color:#555; border:none; padding:10px 24px; border-radius:8px; cursor:pointer; font-size:14px; font-weight:600; }
+.tab.active { background:#1264a3; color:#fff; }
+.tab:hover { background:#d0d0d0; }
+.tab.active:hover { background:#1264a3; }
+.label { color:#888; font-size:13px; margin-bottom:16px; }
+.section { background:#fff; border-radius:10px; padding:20px; margin-bottom:16px; box-shadow:0 1px 3px rgba(0,0,0,0.08); }
+.section h2 { color:#1a1a1a; font-size:1.1em; margin-bottom:12px; }
+.section h3 { color:#e8912d; font-size:0.95em; margin:16px 0 8px; }
+table.summary { width:100%; border-collapse:collapse; font-size:14px; }
+table.summary th { text-align:left; color:#888; padding:6px 12px; border-bottom:1px solid #e0e0e0; }
+table.summary td { padding:6px 12px; border-bottom:1px solid #f0f0f0; }
+table.summary tr:nth-child(2) td { color:#888; }
+table.summary tr:nth-child(3) td { color:#1976d2; }
+table.summary tr:nth-child(4) td { color:#2e7d32; }
+table.summary tr:nth-child(5) td { color:#c62828; }
+table.summary tr:nth-child(6) td { color:#333; font-weight:600; }
+.rates { margin-top:12px; font-size:14px; line-height:1.8; }
+.rate-row.won { color:#2e7d32; }
+.rate-row.lost { color:#c62828; }
+table.deals { width:100%; border-collapse:collapse; font-size:13px; }
+table.deals th { text-align:left; color:#888; padding:6px 8px; border-bottom:1px solid #e0e0e0; }
+table.deals td { padding:6px 8px; border-bottom:1px solid #f0f0f0; }
+table.deals td.deal-name { color:#1a1a1a; font-weight:500; max-width:300px; overflow:hidden; text-overflow:ellipsis; white-space:nowrap; }
+.empty { color:#999; font-style:italic; }
+.footer { text-align:center; color:#aaa; font-size:12px; margin-top:24px; }
+</style>
+</head>
+<body>
+<div class="container">
+<h1>&#x1F4CA; Shopl 국내 영업현황 보고서</h1>
+<div class="tabs"><button class="tab active" onclick="showTab('daily')">일간</button>
+<button class="tab" onclick="showTab('weekly')">주간</button>
+<button class="tab" onclick="showTab('monthly')">월간</button>
+</div>
+<div id="tab-daily" class="tab-content" style="display:block"><div class="label">2026-03-07 (어제) &nbsp;|&nbsp; 생성: 2026-03-08 03:21</div>
+<div class="section"><h2>&#x1F4CB; 전사 요약</h2><table class="summary">
+<tr><th>구분</th><th>건수</th><th>MRR</th></tr>
+<tr><td>직전</td><td>262건</td><td>₩24,561만</td></tr>
+<tr><td>신규</td><td>0건</td><td>₩0만</td></tr>
+<tr><td>성공</td><td>0건</td><td>₩0만</td></tr>
+<tr><td>실패</td><td>0건</td><td>₩0만</td></tr>
+<tr><td>잔여</td><td>262건</td><td>₩24,561만</td></tr>
+</table><div class="rates">
+<div class="rate-row won">&#x2705; 성공률 &nbsp; 고객수 <b>0.0%</b> (0/262건) &nbsp;|&nbsp; MRR <b>0.0%</b> (₩0만/₩24,561만)</div>
+<div class="rate-row lost">&#x274C; 실패율 &nbsp; 고객수 <b>0.0%</b> (0/262건) &nbsp;|&nbsp; MRR <b>0.0%</b> (₩0만/₩24,561만)</div>
+</div></div>
+<div class="section"><h2>&#x1F465; 담당자별 현황</h2><h3>Dawn</h3>
+<table class="summary">
+<tr><th>구분</th><th>건수</th><th>MRR</th></tr>
+<tr><td>직전</td><td>50건</td><td>₩23,283만</td></tr>
+<tr><td>신규</td><td>0건</td><td>₩0만</td></tr>
+<tr><td>성공</td><td>0건</td><td>₩0만</td></tr>
+<tr><td>실패</td><td>0건</td><td>₩0만</td></tr>
+<tr><td>잔여</td><td>50건</td><td>₩23,283만</td></tr>
+</table><h3>Danny</h3>
+<table class="summary">
+<tr><th>구분</th><th>건수</th><th>MRR</th></tr>
+<tr><td>직전</td><td>184건</td><td>₩514만</td></tr>
+<tr><td>신규</td><td>0건</td><td>₩0만</td></tr>
+<tr><td>성공</td><td>0건</td><td>₩0만</td></tr>
+<tr><td>실패</td><td>0건</td><td>₩0만</td></tr>
+<tr><td>잔여</td><td>184건</td><td>₩514만</td></tr>
+</table><h3>Evelyn</h3>
+<table class="summary">
+<tr><th>구분</th><th>건수</th><th>MRR</th></tr>
+<tr><td>직전</td><td>28건</td><td>₩764만</td></tr>
+<tr><td>신규</td><td>0건</td><td>₩0만</td></tr>
+<tr><td>성공</td><td>0건</td><td>₩0만</td></tr>
+<tr><td>실패</td><td>0건</td><td>₩0만</td></tr>
+<tr><td>잔여</td><td>28건</td><td>₩764만</td></tr>
+</table></div>
+<div class="section"><h2>&#x1F3C6; 성공 케이스 (0건, ₩0만)</h2><p class='empty'>해당 기간 성공 건 없음</p></div>
+<div class="section"><h2>&#x1F6A8; 실패 케이스 (0건, ₩0만)</h2><p class='empty'>해당 기간 실패 건 없음</p></div>
+</div>
+<div id="tab-weekly" class="tab-content" style="display:none"><div class="label">02/23 ~ 03/01 (지난주) &nbsp;|&nbsp; 생성: 2026-03-08 03:21</div>
+<div class="section"><h2>&#x1F4CB; 전사 요약</h2><table class="summary">
+<tr><th>구분</th><th>건수</th><th>MRR</th></tr>
+<tr><td>직전</td><td>285건</td><td>₩24,061만</td></tr>
+<tr><td>신규</td><td>9건</td><td>₩1,408만</td></tr>
+<tr><td>성공</td><td>7건</td><td>₩183만</td></tr>
+<tr><td>실패</td><td>25건</td><td>₩725만</td></tr>
+<tr><td>잔여</td><td>262건</td><td>₩24,561만</td></tr>
+</table><div class="rates">
+<div class="rate-row won">&#x2705; 성공률 &nbsp; 고객수 <b>2.4%</b> (7/294건) &nbsp;|&nbsp; MRR <b>0.7%</b> (₩183만/₩25,469만)</div>
+<div class="rate-row lost">&#x274C; 실패율 &nbsp; 고객수 <b>8.5%</b> (25/294건) &nbsp;|&nbsp; MRR <b>2.8%</b> (₩725만/₩25,469만)</div>
+</div></div>
+<div class="section"><h2>&#x1F465; 담당자별 현황</h2><h3>Dawn</h3>
+<table class="summary">
+<tr><th>구분</th><th>건수</th><th>MRR</th></tr>
+<tr><td>직전</td><td>51건</td><td>₩22,104만</td></tr>
+<tr><td>신규</td><td>1건</td><td>₩1,300만</td></tr>
+<tr><td>성공</td><td>1건</td><td>₩100만</td></tr>
+<tr><td>실패</td><td>1건</td><td>₩21만</td></tr>
+<tr><td>잔여</td><td>50건</td><td>₩23,283만</td></tr>
+</table><h3>Danny</h3>
+<table class="summary">
+<tr><th>구분</th><th>건수</th><th>MRR</th></tr>
+<tr><td>직전</td><td>206건</td><td>₩1,213만</td></tr>
+<tr><td>신규</td><td>5건</td><td>₩47만</td></tr>
+<tr><td>성공</td><td>4건</td><td>₩59만</td></tr>
+<tr><td>실패</td><td>23건</td><td>₩686만</td></tr>
+<tr><td>잔여</td><td>184건</td><td>₩514만</td></tr>
+</table><h3>Evelyn</h3>
+<table class="summary">
+<tr><th>구분</th><th>건수</th><th>MRR</th></tr>
+<tr><td>직전</td><td>28건</td><td>₩745만</td></tr>
+<tr><td>신규</td><td>3건</td><td>₩61만</td></tr>
+<tr><td>성공</td><td>2건</td><td>₩24만</td></tr>
+<tr><td>실패</td><td>1건</td><td>₩18만</td></tr>
+<tr><td>잔여</td><td>28건</td><td>₩764만</td></tr>
+</table></div>
+<div class="section"><h2>&#x1F3C6; 성공 케이스 (7건, ₩183만)</h2><table class="deals"><tr><th></th><th>고객명</th><th>담당</th><th>MRR</th><th>날짜</th><th>소요</th></tr>
+<tr><td>&#x2705;</td><td class="deal-name">국립극단 거래</td><td>Danny</td><td>₩16만</td><td>2026-02-25</td><td>323일</td></tr>
+<tr><td>&#x2705;</td><td class="deal-name">HADA - 인지컨트롤스 거래</td><td>Danny</td><td>₩30만</td><td>2026-02-26</td><td>218일</td></tr>
+<tr><td>&#x2705;</td><td class="deal-name">토니모리 VMD/영업팀에서 200여개 매장 업무관리</td><td>Dawn</td><td>₩100만</td><td>2026-02-24</td><td>96일</td></tr>
+<tr><td>&#x2705;</td><td class="deal-name">주식회사 위플랜츠</td><td>Danny</td><td>₩3만</td><td>2026-02-26</td><td>86일</td></tr>
+<tr><td>&#x2705;</td><td class="deal-name">지인테크</td><td>Evelyn</td><td>₩12만</td><td>2026-02-27</td><td>25일</td></tr>
+<tr><td>&#x2705;</td><td class="deal-name">한림SMF(서울만두) 매장직 60명 출퇴근기록</td><td>Evelyn</td><td>₩12만</td><td>2026-02-27</td><td>23일</td></tr>
+<tr><td>&#x2705;</td><td class="deal-name">발렉스서비스 - 기아타이거즈</td><td>Danny</td><td>₩10만</td><td>2026-02-26</td><td>0일</td></tr>
+</table></div>
+<div class="section"><h2>&#x1F6A8; 실패 케이스 (25건, ₩725만)</h2><table class="deals"><tr><th></th><th>고객명</th><th>담당</th><th>MRR</th><th>날짜</th><th>소요</th></tr>
+<tr><td>&#x26D4;</td><td class="deal-name">HADA 롯데웰푸드 수원공장</td><td>Danny</td><td>₩0만</td><td>2026-02-26</td><td>772일</td></tr>
+<tr><td>&#x26D4;</td><td class="deal-name">LS알스코</td><td>Danny</td><td>₩0만</td><td>2026-02-26</td><td>709일</td></tr>
+<tr><td>&#x26D4;</td><td class="deal-name">블루포션 거래</td><td>Danny</td><td>₩6만</td><td>2026-02-26</td><td>496일</td></tr>
+<tr><td>&#x26D4;</td><td class="deal-name">HADA 인천공항운영서비스 자료관리운영사업부 거래</td><td>Danny</td><td>₩0만</td><td>2026-02-26</td><td>378일</td></tr>
+<tr><td>&#x26D4;</td><td class="deal-name">하다 - 브릭아이에프엠 거래</td><td>Danny</td><td>₩0만</td><td>2026-02-26</td><td>353일</td></tr>
+<tr><td>&#x26D4;</td><td class="deal-name">동작 청년도전지원사업팀 거래</td><td>Evelyn</td><td>₩18만</td><td>2026-02-27</td><td>326일</td></tr>
+<tr><td>&#x26D4;</td><td class="deal-name">인천국제공항철도 - 소화기 점검 거래</td><td>Danny</td><td>₩60만</td><td>2026-02-26</td><td>202일</td></tr>
+<tr><td>&#x26D4;</td><td class="deal-name">HADA - 소노인터내셔널 거래</td><td>Danny</td><td>₩252만</td><td>2026-02-26</td><td>163일</td></tr>
+<tr><td>&#x26D4;</td><td class="deal-name">(주)하이비젼시스템</td><td>Danny</td><td>₩21만</td><td>2026-02-26</td><td>122일</td></tr>
+<tr><td>&#x26D4;</td><td class="deal-name">(주)삼구아이앤씨 - 하다 민원관리</td><td>Danny</td><td>₩18만</td><td>2026-02-26</td><td>100일</td></tr>
+<tr><td>&#x26D4;</td><td class="deal-name">롯데글로벌로지스</td><td>Danny</td><td>₩10만</td><td>2026-02-26</td><td>94일</td></tr>
+<tr><td>&#x26D4;</td><td class="deal-name">HADA - 피에스엠씨(힐스테이트에코안산중앙역)</td><td>Danny</td><td>₩0만</td><td>2026-02-26</td><td>74일</td></tr>
+<tr><td>&#x26D4;</td><td class="deal-name">HADA - 파라다이스시티 객실점검</td><td>Danny</td><td>₩149만</td><td>2026-02-26</td><td>73일</td></tr>
+<tr><td>&#x26D4;</td><td class="deal-name">기린성형외과</td><td>Danny</td><td>₩85만</td><td>2026-02-26</td><td>71일</td></tr>
+<tr><td>&#x26D4;</td><td class="deal-name">티앤지로지스틱스</td><td>Danny</td><td>₩7만</td><td>2026-02-26</td><td>57일</td></tr>
+<tr><td>&#x26D4;</td><td class="deal-name">강북삼성병원</td><td>Danny</td><td>₩15만</td><td>2026-02-26</td><td>43일</td></tr>
+<tr><td>&#x26D4;</td><td class="deal-name">서무건축 (임팩트플로우)</td><td>Danny</td><td>₩0만</td><td>2026-02-26</td><td>42일</td></tr>
+<tr><td>&#x26D4;</td><td class="deal-name">왕보 50명 스탠다드</td><td>Dawn</td><td>₩21만</td><td>2026-02-27</td><td>43일</td></tr>
+<tr><td>&#x26D4;</td><td class="deal-name">미창조</td><td>Danny</td><td>₩4만</td><td>2026-02-26</td><td>41일</td></tr>
+<tr><td>&#x26D4;</td><td class="deal-name">더홀릭컴퍼니</td><td>Danny</td><td>₩20만</td><td>2026-02-26</td><td>37일</td></tr>
+<tr><td>&#x26D4;</td><td class="deal-name">멘토리</td><td>Danny</td><td>₩4만</td><td>2026-02-26</td><td>37일</td></tr>
+<tr><td>&#x26D4;</td><td class="deal-name">동회오토</td><td>Danny</td><td>₩2만</td><td>2026-02-26</td><td>37일</td></tr>
+<tr><td>&#x26D4;</td><td class="deal-name">중구청년내일기지</td><td>Danny</td><td>₩21만</td><td>2026-02-26</td><td>35일</td></tr>
+<tr><td>&#x26D4;</td><td class="deal-name">생기청과</td><td>Danny</td><td>₩1만</td><td>2026-02-26</td><td>28일</td></tr>
+<tr><td>&#x26D4;</td><td class="deal-name">명보아이엔씨</td><td>Danny</td><td>₩11만</td><td>2026-02-26</td><td>22일</td></tr>
+</table></div>
+</div>
+<div id="tab-monthly" class="tab-content" style="display:none"><div class="label">2026년 02월 &nbsp;|&nbsp; 생성: 2026-03-08 03:21</div>
+<div class="section"><h2>&#x1F4CB; 전사 요약</h2><table class="summary">
+<tr><th>구분</th><th>건수</th><th>MRR</th></tr>
+<tr><td>직전</td><td>284건</td><td>₩24,631만</td></tr>
+<tr><td>신규</td><td>40건</td><td>₩2,294만</td></tr>
+<tr><td>성공</td><td>16건</td><td>₩412만</td></tr>
+<tr><td>실패</td><td>46건</td><td>₩1,953만</td></tr>
+<tr><td>잔여</td><td>262건</td><td>₩24,561만</td></tr>
+</table><div class="rates">
+<div class="rate-row won">&#x2705; 성공률 &nbsp; 고객수 <b>4.9%</b> (16/324건) &nbsp;|&nbsp; MRR <b>1.5%</b> (₩412만/₩26,926만)</div>
+<div class="rate-row lost">&#x274C; 실패율 &nbsp; 고객수 <b>14.2%</b> (46/324건) &nbsp;|&nbsp; MRR <b>7.3%</b> (₩1,953만/₩26,926만)</div>
+</div></div>
+<div class="section"><h2>&#x1F465; 담당자별 현황</h2><h3>Dawn</h3>
+<table class="summary">
+<tr><th>구분</th><th>건수</th><th>MRR</th></tr>
+<tr><td>직전</td><td>55건</td><td>₩22,386만</td></tr>
+<tr><td>신규</td><td>4건</td><td>₩1,845만</td></tr>
+<tr><td>성공</td><td>3건</td><td>₩223만</td></tr>
+<tr><td>실패</td><td>6건</td><td>₩725만</td></tr>
+<tr><td>잔여</td><td>50건</td><td>₩23,283만</td></tr>
+</table><h3>Danny</h3>
+<table class="summary">
+<tr><th>구분</th><th>건수</th><th>MRR</th></tr>
+<tr><td>직전</td><td>199건</td><td>₩1,415만</td></tr>
+<tr><td>신규</td><td>22건</td><td>₩238만</td></tr>
+<tr><td>성공</td><td>6건</td><td>₩106만</td></tr>
+<tr><td>실패</td><td>31건</td><td>₩1,033만</td></tr>
+<tr><td>잔여</td><td>184건</td><td>₩514만</td></tr>
+</table><h3>Evelyn</h3>
+<table class="summary">
+<tr><th>구분</th><th>건수</th><th>MRR</th></tr>
+<tr><td>직전</td><td>30건</td><td>₩831만</td></tr>
+<tr><td>신규</td><td>14건</td><td>₩211만</td></tr>
+<tr><td>성공</td><td>7건</td><td>₩84만</td></tr>
+<tr><td>실패</td><td>9건</td><td>₩195만</td></tr>
+<tr><td>잔여</td><td>28건</td><td>₩764만</td></tr>
+</table></div>
+<div class="section"><h2>&#x1F3C6; 성공 케이스 (16건, ₩412만)</h2><table class="deals"><tr><th></th><th>고객명</th><th>담당</th><th>MRR</th><th>날짜</th><th>소요</th></tr>
+<tr><td>&#x2705;</td><td class="deal-name">국립극단 거래</td><td>Danny</td><td>₩16만</td><td>2026-02-25</td><td>323일</td></tr>
+<tr><td>&#x2705;</td><td class="deal-name">(주)한국협화 영업사원 근태관리</td><td>Evelyn</td><td>₩14만</td><td>2026-02-05</td><td>255일</td></tr>
+<tr><td>&#x2705;</td><td class="deal-name">HADA - 인지컨트롤스 거래</td><td>Danny</td><td>₩30만</td><td>2026-02-26</td><td>218일</td></tr>
+<tr><td>&#x2705;</td><td class="deal-name">토니모리 VMD/영업팀에서 200여개 매장 업무관리</td><td>Dawn</td><td>₩100만</td><td>2026-02-24</td><td>96일</td></tr>
+<tr><td>&#x2705;</td><td class="deal-name">주식회사 위플랜츠</td><td>Danny</td><td>₩3만</td><td>2026-02-26</td><td>86일</td></tr>
+<tr><td>&#x2705;</td><td class="deal-name">비에스케이(BSK) 300명 매장직 근태관리</td><td>Dawn</td><td>₩120만</td><td>2026-02-06</td><td>59일</td></tr>
+<tr><td>&#x2705;</td><td class="deal-name">단이네일 (임팩트플로우)</td><td>Evelyn</td><td>₩2만</td><td>2026-02-02</td><td>55일</td></tr>
+<tr><td>&#x2705;</td><td class="deal-name">노무법인 안정</td><td>Evelyn</td><td>₩11만</td><td>2026-02-19</td><td>66일</td></tr>
+<tr><td>&#x2705;</td><td class="deal-name">서비스플랜코리아(주) (임팩트플로우)</td><td>Evelyn</td><td>₩8만</td><td>2026-02-09</td><td>53일</td></tr>
+<tr><td>&#x2705;</td><td class="deal-name">HADA - 카이스 주식회사</td><td>Danny</td><td>₩22만</td><td>2026-02-19</td><td>43일</td></tr>
+<tr><td>&#x2705;</td><td class="deal-name">용인특례시청 하수시설과</td><td>Danny</td><td>₩24만</td><td>2026-02-13</td><td>28일</td></tr>
+<tr><td>&#x2705;</td><td class="deal-name">엔케이 주식회사</td><td>Evelyn</td><td>₩25만</td><td>2026-02-10</td><td>21일</td></tr>
+<tr><td>&#x2705;</td><td class="deal-name">나눔앤커넥트 내근직 14명 테스트 이후 200명까지 확산도입</td><td>Dawn</td><td>₩3만</td><td>2026-02-13</td><td>24일</td></tr>
+<tr><td>&#x2705;</td><td class="deal-name">지인테크</td><td>Evelyn</td><td>₩12만</td><td>2026-02-27</td><td>25일</td></tr>
+<tr><td>&#x2705;</td><td class="deal-name">한림SMF(서울만두) 매장직 60명 출퇴근기록</td><td>Evelyn</td><td>₩12만</td><td>2026-02-27</td><td>23일</td></tr>
+<tr><td>&#x2705;</td><td class="deal-name">발렉스서비스 - 기아타이거즈</td><td>Danny</td><td>₩10만</td><td>2026-02-26</td><td>0일</td></tr>
+</table></div>
+<div class="section"><h2>&#x1F6A8; 실패 케이스 (46건, ₩1,953만)</h2><table class="deals"><tr><th></th><th>고객명</th><th>담당</th><th>MRR</th><th>날짜</th><th>소요</th></tr>
+<tr><td>&#x26D4;</td><td class="deal-name">브랜드유니버스 거래</td><td>Evelyn</td><td>₩21만</td><td>2026-02-13</td><td>1331일</td></tr>
+<tr><td>&#x26D4;</td><td class="deal-name">HADA 롯데웰푸드 수원공장</td><td>Danny</td><td>₩0만</td><td>2026-02-26</td><td>772일</td></tr>
+<tr><td>&#x26D4;</td><td class="deal-name">LS알스코</td><td>Danny</td><td>₩0만</td><td>2026-02-26</td><td>709일</td></tr>
+<tr><td>&#x26D4;</td><td class="deal-name">블루포션 거래</td><td>Danny</td><td>₩6만</td><td>2026-02-26</td><td>496일</td></tr>
+<tr><td>&#x26D4;</td><td class="deal-name">HADA 인천공항운영서비스 자료관리운영사업부 거래</td><td>Danny</td><td>₩0만</td><td>2026-02-26</td><td>378일</td></tr>
+<tr><td>&#x26D4;</td><td class="deal-name">하다 - 브릭아이에프엠 거래</td><td>Danny</td><td>₩0만</td><td>2026-02-26</td><td>353일</td></tr>
+<tr><td>&#x26D4;</td><td class="deal-name">(주)케어맥스 거래</td><td>Evelyn</td><td>₩88만</td><td>2026-02-13</td><td>324일</td></tr>
+<tr><td>&#x26D4;</td><td class="deal-name">동작 청년도전지원사업팀 거래</td><td>Evelyn</td><td>₩18만</td><td>2026-02-27</td><td>326일</td></tr>
+<tr><td>&#x26D4;</td><td class="deal-name">온코리아 거래</td><td>Danny</td><td>₩18만</td><td>2026-02-20</td><td>238일</td></tr>
+<tr><td>&#x26D4;</td><td class="deal-name">인천국제공항철도 - 소화기 점검 거래</td><td>Danny</td><td>₩60만</td><td>2026-02-26</td><td>202일</td></tr>
+<tr><td>&#x26D4;</td><td class="deal-name">(주)지에스아이 거래</td><td>Danny</td><td>₩69만</td><td>2026-02-20</td><td>185일</td></tr>
+<tr><td>&#x26D4;</td><td class="deal-name">주식회사 두잇 거래</td><td>Evelyn</td><td>₩6만</td><td>2026-02-02</td><td>140일</td></tr>
+<tr><td>&#x26D4;</td><td class="deal-name">HADA - 소노인터내셔널 거래</td><td>Danny</td><td>₩252만</td><td>2026-02-26</td><td>163일</td></tr>
+<tr><td>&#x26D4;</td><td class="deal-name">인천공항운영서비스 부대건물환경미화</td><td>Danny</td><td>₩66만</td><td>2026-02-20</td><td>143일</td></tr>
+<tr><td>&#x26D4;</td><td class="deal-name">(주)하이비젼시스템</td><td>Danny</td><td>₩21만</td><td>2026-02-26</td><td>122일</td></tr>
+<tr><td>&#x26D4;</td><td class="deal-name">Ticsa - Mexico (2025 한-중남미 서밋)</td><td>Dawn</td><td>₩0만</td><td>2026-02-01</td><td>95일</td></tr>
+<tr><td>&#x26D4;</td><td class="deal-name">BAT Hungary (파트너문의)</td><td>Dawn</td><td>₩0만</td><td>2026-02-09</td><td>91일</td></tr>
+<tr><td>&#x26D4;</td><td class="deal-name">휴네시온</td><td>Evelyn</td><td>₩28만</td><td>2026-02-13</td><td>95일</td></tr>
+<tr><td>&#x26D4;</td><td class="deal-name">(주)삼구아이앤씨 - 하다 민원관리</td><td>Danny</td><td>₩18만</td><td>2026-02-26</td><td>100일</td></tr>
+<tr><td>&#x26D4;</td><td class="deal-name">의료법인 센텀병원(서부산)</td><td>Dawn</td><td>₩140만</td><td>2026-02-13</td><td>84일</td></tr>
+<tr><td>&#x26D4;</td><td class="deal-name">롯데글로벌로지스</td><td>Danny</td><td>₩10만</td><td>2026-02-26</td><td>94일</td></tr>
+<tr><td>&#x26D4;</td><td class="deal-name">가톨릭 인천성모병원</td><td>Danny</td><td>₩35만</td><td>2026-02-20</td><td>88일</td></tr>
+<tr><td>&#x26D4;</td><td class="deal-name">해남우리종합병원 (임팩트플로우)</td><td>Danny</td><td>₩140만</td><td>2026-02-12</td><td>65일</td></tr>
+<tr><td>&#x26D4;</td><td class="deal-name">HADA - 피에스엠씨(힐스테이트에코안산중앙역)</td><td>Danny</td><td>₩0만</td><td>2026-02-26</td><td>74일</td></tr>
+<tr><td>&#x26D4;</td><td class="deal-name">HADA - 파라다이스시티 객실점검</td><td>Danny</td><td>₩149만</td><td>2026-02-26</td><td>73일</td></tr>
+<tr><td>&#x26D4;</td><td class="deal-name">대천농기계</td><td>Evelyn</td><td>₩18만</td><td>2026-02-13</td><td>59일</td></tr>
+<tr><td>&#x26D4;</td><td class="deal-name">기린성형외과</td><td>Danny</td><td>₩85만</td><td>2026-02-26</td><td>71일</td></tr>
+<tr><td>&#x26D4;</td><td class="deal-name">HADA - 이수페타시스 (소화기·소화전 400개 관리 니즈)</td><td>Danny</td><td>₩16만</td><td>2026-02-20</td><td>63일</td></tr>
+<tr><td>&#x26D4;</td><td class="deal-name">주식회사 대경이앤씨</td><td>Evelyn</td><td>₩10만</td><td>2026-02-13</td><td>52일</td></tr>
+<tr><td>&#x26D4;</td><td class="deal-name">티앤지로지스틱스</td><td>Danny</td><td>₩7만</td><td>2026-02-26</td><td>57일</td></tr>
+<tr><td>&#x26D4;</td><td class="deal-name">그레잇코리아</td><td>Danny</td><td>₩3만</td><td>2026-02-20</td><td>51일</td></tr>
+<tr><td>&#x26D4;</td><td class="deal-name">여주도시공사</td><td>Danny</td><td>₩0만</td><td>2026-02-20</td><td>46일</td></tr>
+<tr><td>&#x26D4;</td><td class="deal-name">울릉집 용산점 (임팩트플로우)</td><td>Evelyn</td><td>₩5만</td><td>2026-02-10</td><td>36일</td></tr>
+<tr><td>&#x26D4;</td><td class="deal-name">에어코리아 1400명 스탠다드</td><td>Dawn</td><td>₩560만</td><td>2026-02-03</td><td>20일</td></tr>
+<tr><td>&#x26D4;</td><td class="deal-name">강북삼성병원</td><td>Danny</td><td>₩15만</td><td>2026-02-26</td><td>43일</td></tr>
+<tr><td>&#x26D4;</td><td class="deal-name">유엔잡</td><td>Evelyn</td><td>₩2만</td><td>2026-02-11</td><td>28일</td></tr>
+<tr><td>&#x26D4;</td><td class="deal-name">서무건축 (임팩트플로우)</td><td>Danny</td><td>₩0만</td><td>2026-02-26</td><td>42일</td></tr>
+<tr><td>&#x26D4;</td><td class="deal-name">왕보 50명 스탠다드</td><td>Dawn</td><td>₩21만</td><td>2026-02-27</td><td>43일</td></tr>
+<tr><td>&#x26D4;</td><td class="deal-name">미창조</td><td>Danny</td><td>₩4만</td><td>2026-02-26</td><td>41일</td></tr>
+<tr><td>&#x26D4;</td><td class="deal-name">더홀릭컴퍼니</td><td>Danny</td><td>₩20만</td><td>2026-02-26</td><td>37일</td></tr>
+<tr><td>&#x26D4;</td><td class="deal-name">멘토리</td><td>Danny</td><td>₩4만</td><td>2026-02-26</td><td>37일</td></tr>
+<tr><td>&#x26D4;</td><td class="deal-name">동회오토</td><td>Danny</td><td>₩2만</td><td>2026-02-26</td><td>37일</td></tr>
+<tr><td>&#x26D4;</td><td class="deal-name">LYN DE MEXICO</td><td>Dawn</td><td>₩4만</td><td>2026-02-09</td><td>19일</td></tr>
+<tr><td>&#x26D4;</td><td class="deal-name">중구청년내일기지</td><td>Danny</td><td>₩21만</td><td>2026-02-26</td><td>35일</td></tr>
+<tr><td>&#x26D4;</td><td class="deal-name">생기청과</td><td>Danny</td><td>₩1만</td><td>2026-02-26</td><td>28일</td></tr>
+<tr><td>&#x26D4;</td><td class="deal-name">명보아이엔씨</td><td>Danny</td><td>₩11만</td><td>2026-02-26</td><td>22일</td></tr>
+</table></div>
+</div>
+
+<div class="footer">MRR = Pipedrive ARR / 12 &nbsp;|&nbsp; KRW 딜만 집계 &nbsp;|&nbsp; 성공/실패율 = 해당건 / (잔여+성공+실패)</div>
+</div>
+<script>
+function showTab(period) {
+  document.querySelectorAll('.tab-content').forEach(el => el.style.display = 'none');
+  document.querySelectorAll('.tab').forEach(el => el.classList.remove('active'));
+  document.getElementById('tab-' + period).style.display = 'block';
+  event.target.classList.add('active');
+}
+</script>
+</body>
+</html>
