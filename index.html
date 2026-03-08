@@ -35,6 +35,27 @@ table.deals td { padding:6px 8px; border-bottom:1px solid #f0f0f0; }
 table.deals td.deal-name { color:#1a1a1a; font-weight:500; max-width:300px; overflow:hidden; text-overflow:ellipsis; white-space:nowrap; }
 .empty { color:#999; font-style:italic; }
 .footer { text-align:center; color:#aaa; font-size:12px; margin-top:24px; }
+.chart-grid { display:grid; grid-template-columns:1fr 1fr 1fr; gap:16px; }
+@media(max-width:700px) { .chart-grid { grid-template-columns:1fr; } }
+.chart-block { background:#fafafa; border-radius:8px; padding:12px; }
+.chart-block h4 { font-size:13px; color:#555; margin-bottom:8px; }
+.bar-row { display:flex; align-items:center; gap:6px; margin-bottom:4px; }
+.bar-label { font-size:11px; color:#888; min-width:36px; text-align:right; }
+.bar-track { flex:1; height:18px; background:#eee; border-radius:4px; overflow:hidden; }
+.bar-fill { height:100%; border-radius:4px; transition:width 0.3s; min-width:2px; }
+.bar-value { font-size:11px; color:#555; min-width:48px; }
+table.trend-table { width:100%; border-collapse:collapse; font-size:13px; margin-top:8px; }
+table.trend-table th { text-align:left; color:#888; padding:6px 10px; border-bottom:1px solid #e0e0e0; }
+table.trend-table td { padding:6px 10px; border-bottom:1px solid #f0f0f0; }
+.trend-controls { display:flex; flex-wrap:wrap; gap:16px; align-items:center; }
+.control-group { display:flex; align-items:center; gap:8px; }
+.control-label { font-size:13px; font-weight:600; color:#555; }
+.toggle-btn { background:#e0e0e0; color:#555; border:none; padding:7px 16px; border-radius:6px; cursor:pointer; font-size:13px; font-weight:500; transition:all 0.2s; }
+.toggle-btn:hover { background:#d0d0d0; }
+.toggle-btn.active { background:#1264a3; color:#fff; }
+.check-btn { display:inline-flex; align-items:center; gap:4px; padding:5px 12px; border-radius:6px; cursor:pointer; font-size:13px; border:2px solid var(--c,#999); color:var(--c,#333); background:#fff; transition:all 0.2s; }
+.check-btn input { display:none; }
+.check-btn:has(input:checked) { background:var(--c,#999); color:#fff; }
 </style>
 </head>
 <body>
@@ -43,8 +64,9 @@ table.deals td.deal-name { color:#1a1a1a; font-weight:500; max-width:300px; over
 <div class="tabs"><button class="tab active" onclick="showTab('daily')">일간</button>
 <button class="tab" onclick="showTab('weekly')">주간</button>
 <button class="tab" onclick="showTab('monthly')">월간</button>
+<button class="tab" onclick="showTab('trend')">추세</button>
 </div>
-<div id="tab-daily" class="tab-content" style="display:block"><div class="label">2026-03-07 (어제) &nbsp;|&nbsp; 생성: 2026-03-08 03:21</div>
+<div id="tab-daily" class="tab-content" style="display:block"><div class="label">2026-03-07 (어제) &nbsp;|&nbsp; 생성: 2026-03-08 22:53</div>
 <div class="section"><h2>&#x1F4CB; 전사 요약</h2><table class="summary">
 <tr><th>구분</th><th>건수</th><th>MRR</th></tr>
 <tr><td>직전</td><td>262건</td><td>₩24,561만</td></tr>
@@ -84,7 +106,7 @@ table.deals td.deal-name { color:#1a1a1a; font-weight:500; max-width:300px; over
 <div class="section"><h2>&#x1F3C6; 성공 케이스 (0건, ₩0만)</h2><p class='empty'>해당 기간 성공 건 없음</p></div>
 <div class="section"><h2>&#x1F6A8; 실패 케이스 (0건, ₩0만)</h2><p class='empty'>해당 기간 실패 건 없음</p></div>
 </div>
-<div id="tab-weekly" class="tab-content" style="display:none"><div class="label">02/23 ~ 03/01 (지난주) &nbsp;|&nbsp; 생성: 2026-03-08 03:21</div>
+<div id="tab-weekly" class="tab-content" style="display:none"><div class="label">02/23 ~ 03/01 (지난주) &nbsp;|&nbsp; 생성: 2026-03-08 22:53</div>
 <div class="section"><h2>&#x1F4CB; 전사 요약</h2><table class="summary">
 <tr><th>구분</th><th>건수</th><th>MRR</th></tr>
 <tr><td>직전</td><td>285건</td><td>₩24,061만</td></tr>
@@ -158,7 +180,7 @@ table.deals td.deal-name { color:#1a1a1a; font-weight:500; max-width:300px; over
 <tr><td>&#x26D4;</td><td class="deal-name">명보아이엔씨</td><td>Danny</td><td>₩11만</td><td>2026-02-26</td><td>22일</td></tr>
 </table></div>
 </div>
-<div id="tab-monthly" class="tab-content" style="display:none"><div class="label">2026년 02월 &nbsp;|&nbsp; 생성: 2026-03-08 03:21</div>
+<div id="tab-monthly" class="tab-content" style="display:none"><div class="label">2026년 02월 &nbsp;|&nbsp; 생성: 2026-03-08 22:53</div>
 <div class="section"><h2>&#x1F4CB; 전사 요약</h2><table class="summary">
 <tr><th>구분</th><th>건수</th><th>MRR</th></tr>
 <tr><td>직전</td><td>284건</td><td>₩24,631만</td></tr>
@@ -262,6 +284,90 @@ table.deals td.deal-name { color:#1a1a1a; font-weight:500; max-width:300px; over
 <tr><td>&#x26D4;</td><td class="deal-name">명보아이엔씨</td><td>Danny</td><td>₩11만</td><td>2026-02-26</td><td>22일</td></tr>
 </table></div>
 </div>
+<div id="tab-trend" class="tab-content" style="display:none"><div class="label">추세 분석 &nbsp;|&nbsp; 생성: 2026-03-08 22:53</div>
+<div class="section">
+<div class="trend-controls">
+  <div class="control-group">
+    <span class="control-label">기간</span>
+    <button class="toggle-btn active" onclick="setPeriodMode('weekly')" id="btn-weekly">주간 (12주)</button>
+    <button class="toggle-btn" onclick="setPeriodMode('monthly')" id="btn-monthly">월간 (12개월)</button>
+  </div>
+  <div class="control-group">
+    <span class="control-label">항목</span>
+    <label class="check-btn item-checks" style="--c:#1976d2"><input type="checkbox" value="new" checked onchange="drawCharts()"><span>신규</span></label>
+    <label class="check-btn item-checks" style="--c:#2e7d32"><input type="checkbox" value="won" checked onchange="drawCharts()"><span>성공</span></label>
+    <label class="check-btn item-checks" style="--c:#c62828"><input type="checkbox" value="lost" checked onchange="drawCharts()"><span>실패</span></label>
+    <label class="check-btn item-checks" style="--c:#ff8f00"><input type="checkbox" value="rem" onchange="drawCharts()"><span>잔여</span></label>
+  </div>
+  <div class="control-group">
+    <span class="control-label">MRR 구간</span>
+    <label class="check-btn tier-checks" style="--c:#6a1b9a"><input type="checkbox" value="30p" checked onchange="drawCharts()"><span>30+</span></label>
+    <label class="check-btn tier-checks" style="--c:#00838f"><input type="checkbox" value="10p" checked onchange="drawCharts()"><span>10+</span></label>
+    <label class="check-btn tier-checks" style="--c:#795548"><input type="checkbox" value="10m" checked onchange="drawCharts()"><span>10-</span></label>
+  </div>
+</div>
+</div>
+<div class="section"><h2 id="chart-count-title">건수 추세</h2><div id="chart-count"></div></div>
+<div class="section"><h2 id="chart-mrr-title">MRR 추세</h2><div id="chart-mrr"></div></div>
+<div class="section" id="trend-table-section"><h3>상세 데이터</h3><div id="trend-table"></div></div>
+<script>
+var trendData={weekly:[{l:"12/08",new_c_30p:3,won_c_30p:0,lost_c_30p:0,rem_c_30p:18,new_v_30p:3500000,won_v_30p:0,lost_v_30p:0,rem_v_30p:237765667,new_c_10p:0,won_c_10p:0,lost_c_10p:0,rem_c_10p:29,new_v_10p:0,won_v_10p:0,lost_v_10p:0,rem_v_10p:5860200,new_c_10m:5,won_c_10m:0,lost_c_10m:0,rem_c_10m:215,new_v_10m:214000,won_v_10m:0,lost_v_10m:0,rem_v_10m:1984067},{l:"12/15",new_c_30p:3,won_c_30p:0,lost_c_30p:0,rem_c_30p:18,new_v_30p:12343100,won_v_30p:0,lost_v_30p:0,rem_v_30p:237765667,new_c_10p:4,won_c_10p:0,lost_c_10p:0,rem_c_10p:29,new_v_10p:709000,won_v_10p:0,lost_v_10p:0,rem_v_10p:5860200,new_c_10m:5,won_c_10m:0,lost_c_10m:0,rem_c_10m:215,new_v_10m:270000,won_v_10m:0,lost_v_10m:0,rem_v_10m:1984067},{l:"12/22",new_c_30p:1,won_c_30p:0,lost_c_30p:0,rem_c_30p:18,new_v_30p:4676000,won_v_30p:0,lost_v_30p:0,rem_v_30p:237765667,new_c_10p:1,won_c_10p:0,lost_c_10p:0,rem_c_10p:29,new_v_10p:100000,won_v_10p:0,lost_v_10p:0,rem_v_10p:5860200,new_c_10m:0,won_c_10m:0,lost_c_10m:0,rem_c_10m:215,new_v_10m:0,won_v_10m:0,lost_v_10m:0,rem_v_10m:1984067},{l:"12/29",new_c_30p:0,won_c_30p:0,lost_c_30p:0,rem_c_30p:18,new_v_30p:0,won_v_30p:0,lost_v_30p:0,rem_v_30p:237765667,new_c_10p:2,won_c_10p:0,lost_c_10p:0,rem_c_10p:29,new_v_10p:380000,won_v_10p:0,lost_v_10p:0,rem_v_10p:5860200,new_c_10m:2,won_c_10m:0,lost_c_10m:0,rem_c_10m:215,new_v_10m:96000,won_v_10m:0,lost_v_10m:0,rem_v_10m:1984067},{l:"01/05",new_c_30p:0,won_c_30p:0,lost_c_30p:0,rem_c_30p:18,new_v_30p:0,won_v_30p:0,lost_v_30p:0,rem_v_30p:237765667,new_c_10p:1,won_c_10p:0,lost_c_10p:0,rem_c_10p:29,new_v_10p:225000,won_v_10p:0,lost_v_10p:0,rem_v_10p:5860200,new_c_10m:4,won_c_10m:0,lost_c_10m:1,rem_c_10m:215,new_v_10m:76000,won_v_10m:0,lost_v_10m:60000,rem_v_10m:1984067},{l:"01/12",new_c_30p:3,won_c_30p:0,lost_c_30p:0,rem_c_30p:18,new_v_30p:6359600,won_v_30p:0,lost_v_30p:0,rem_v_30p:237765667,new_c_10p:4,won_c_10p:0,lost_c_10p:0,rem_c_10p:29,new_v_10p:868000,won_v_10p:0,lost_v_10p:0,rem_v_10p:5860200,new_c_10m:4,won_c_10m:0,lost_c_10m:0,rem_c_10m:215,new_v_10m:55000,won_v_10m:0,lost_v_10m:0,rem_v_10m:1984067},{l:"01/19",new_c_30p:4,won_c_30p:0,lost_c_30p:0,rem_c_30p:18,new_v_30p:5438000,won_v_30p:0,lost_v_30p:0,rem_v_30p:237765667,new_c_10p:5,won_c_10p:0,lost_c_10p:0,rem_c_10p:29,new_v_10p:1096000,won_v_10p:0,lost_v_10p:0,rem_v_10p:5860200,new_c_10m:11,won_c_10m:0,lost_c_10m:0,rem_c_10m:215,new_v_10m:370583,won_v_10m:0,lost_v_10m:0,rem_v_10m:1984067},{l:"01/26",new_c_30p:0,won_c_30p:2,lost_c_30p:0,rem_c_30p:18,new_v_30p:0,won_v_30p:1814167,lost_v_30p:0,rem_v_30p:237765667,new_c_10p:3,won_c_10p:0,lost_c_10p:0,rem_c_10p:29,new_v_10p:594000,won_v_10p:0,lost_v_10p:0,rem_v_10p:5860200,new_c_10m:5,won_c_10m:0,lost_c_10m:1,rem_c_10m:215,new_v_10m:131000,won_v_10m:0,lost_v_10m:0,rem_v_10m:1984067},{l:"02/02",new_c_30p:1,won_c_30p:1,lost_c_30p:1,rem_c_30p:18,new_v_30p:2400000,won_v_30p:1200000,lost_v_30p:5600000,rem_v_30p:237765667,new_c_10p:7,won_c_10p:1,lost_c_10p:0,rem_c_10p:29,new_v_10p:1062400,won_v_10p:140000,lost_v_10p:0,rem_v_10p:5860200,new_c_10m:2,won_c_10m:1,lost_c_10m:1,rem_c_10m:215,new_v_10m:100000,won_v_10m:16000,lost_v_10m:60000,rem_v_10m:1984067},{l:"02/09",new_c_30p:1,won_c_30p:0,lost_c_30p:3,rem_c_30p:18,new_v_30p:630000,won_v_30p:0,lost_v_30p:3680000,rem_v_30p:237765667,new_c_10p:5,won_c_10p:2,lost_c_10p:4,rem_c_10p:29,new_v_10p:872200,won_v_10p:488000,lost_v_10p:765000,rem_v_10p:5860200,new_c_10m:11,won_c_10m:2,lost_c_10m:4,rem_c_10m:215,new_v_10m:449900,won_v_10m:108000,lost_v_10m:107000,rem_v_10m:1984067},{l:"02/16",new_c_30p:2,won_c_30p:0,lost_c_30p:3,rem_c_30p:18,new_v_30p:3050000,won_v_30p:0,lost_v_30p:1695120,rem_v_30p:237765667,new_c_10p:2,won_c_10p:2,lost_c_10p:2,rem_c_10p:29,new_v_10p:300000,won_v_10p:337000,lost_v_10p:342000,rem_v_10p:5860200,new_c_10m:0,won_c_10m:0,lost_c_10m:2,rem_c_10m:215,new_v_10m:0,won_v_10m:0,lost_v_10m:26000,rem_v_10m:1984067},{l:"02/23",new_c_30p:1,won_c_30p:2,lost_c_30p:4,rem_c_30p:18,new_v_30p:13000000,won_v_30p:1300000,lost_v_30p:5463100,rem_v_30p:237765667,new_c_10p:5,won_c_10p:4,lost_c_10p:9,rem_c_10p:29,new_v_10p:953000,won_v_10p:504000,lost_v_10p:1549400,rem_v_10p:5860200,new_c_10m:3,won_c_10m:1,lost_c_10m:12,rem_c_10m:215,new_v_10m:126000,won_v_10m:28000,lost_v_10m:237500,rem_v_10m:1984067}],monthly:[{l:"25.03",new_c_30p:3,won_c_30p:0,lost_c_30p:0,rem_c_30p:18,new_v_30p:203880000,won_v_30p:0,lost_v_30p:0,rem_v_30p:237765667,new_c_10p:1,won_c_10p:0,lost_c_10p:0,rem_c_10p:29,new_v_10p:246000,won_v_10p:0,lost_v_10p:0,rem_v_10p:5860200,new_c_10m:21,won_c_10m:0,lost_c_10m:1,rem_c_10m:215,new_v_10m:0,won_v_10m:0,lost_v_10m:0,rem_v_10m:1984067},{l:"25.04",new_c_30p:3,won_c_30p:0,lost_c_30p:1,rem_c_30p:18,new_v_30p:19226667,won_v_30p:0,lost_v_30p:360000,rem_v_30p:237765667,new_c_10p:2,won_c_10p:0,lost_c_10p:0,rem_c_10p:29,new_v_10p:340000,won_v_10p:0,lost_v_10p:0,rem_v_10p:5860200,new_c_10m:13,won_c_10m:0,lost_c_10m:1,rem_c_10m:215,new_v_10m:80000,won_v_10m:0,lost_v_10m:0,rem_v_10m:1984067},{l:"25.05",new_c_30p:3,won_c_30p:2,lost_c_30p:1,rem_c_30p:18,new_v_30p:80800000,won_v_30p:3490000,lost_v_30p:400000,rem_v_30p:237765667,new_c_10p:1,won_c_10p:1,lost_c_10p:0,rem_c_10p:29,new_v_10p:140000,won_v_10p:246000,lost_v_10p:0,rem_v_10p:5860200,new_c_10m:5,won_c_10m:0,lost_c_10m:1,rem_c_10m:215,new_v_10m:80000,won_v_10m:0,lost_v_10m:0,rem_v_10m:1984067},{l:"25.06",new_c_30p:2,won_c_30p:0,lost_c_30p:0,rem_c_30p:18,new_v_30p:4000000,won_v_30p:0,lost_v_30p:0,rem_v_30p:237765667,new_c_10p:2,won_c_10p:0,lost_c_10p:0,rem_c_10p:29,new_v_10p:460000,won_v_10p:0,lost_v_10p:0,rem_v_10p:5860200,new_c_10m:2,won_c_10m:1,lost_c_10m:0,rem_c_10m:215,new_v_10m:0,won_v_10m:80000,lost_v_10m:0,rem_v_10m:1984067},{l:"25.07",new_c_30p:4,won_c_30p:0,lost_c_30p:0,rem_c_30p:18,new_v_30p:5674167,won_v_30p:0,lost_v_30p:0,rem_v_30p:237765667,new_c_10p:1,won_c_10p:0,lost_c_10p:0,rem_c_10p:29,new_v_10p:120000,won_v_10p:0,lost_v_10p:0,rem_v_10p:5860200,new_c_10m:1,won_c_10m:0,lost_c_10m:0,rem_c_10m:215,new_v_10m:0,won_v_10m:0,lost_v_10m:0,rem_v_10m:1984067},{l:"25.08",new_c_30p:3,won_c_30p:2,lost_c_30p:0,rem_c_30p:18,new_v_30p:1602120,won_v_30p:80400000,lost_v_30p:0,rem_v_30p:237765667,new_c_10p:0,won_c_10p:0,lost_c_10p:0,rem_c_10p:29,new_v_10p:0,won_v_10p:0,lost_v_10p:0,rem_v_10p:5860200,new_c_10m:0,won_c_10m:0,lost_c_10m:0,rem_c_10m:215,new_v_10m:0,won_v_10m:0,lost_v_10m:0,rem_v_10m:1984067},{l:"25.09",new_c_30p:3,won_c_30p:0,lost_c_30p:0,rem_c_30p:18,new_v_30p:5277600,won_v_30p:0,lost_v_30p:0,rem_v_30p:237765667,new_c_10p:1,won_c_10p:0,lost_c_10p:0,rem_c_10p:29,new_v_10p:280000,won_v_10p:0,lost_v_10p:0,rem_v_10p:5860200,new_c_10m:4,won_c_10m:0,lost_c_10m:0,rem_c_10m:215,new_v_10m:116000,won_v_10m:0,lost_v_10m:0,rem_v_10m:1984067},{l:"25.10",new_c_30p:0,won_c_30p:0,lost_c_30p:1,rem_c_30p:18,new_v_30p:0,won_v_30p:0,lost_v_30p:18000000,rem_v_30p:237765667,new_c_10p:1,won_c_10p:0,lost_c_10p:0,rem_c_10p:29,new_v_10p:210000,won_v_10p:0,lost_v_10p:0,rem_v_10p:5860200,new_c_10m:7,won_c_10m:0,lost_c_10m:0,rem_c_10m:215,new_v_10m:0,won_v_10m:0,lost_v_10m:0,rem_v_10m:1984067},{l:"25.11",new_c_30p:3,won_c_30p:1,lost_c_30p:1,rem_c_30p:18,new_v_30p:2750400,won_v_30p:3000000,lost_v_30p:2100000,rem_v_30p:237765667,new_c_10p:4,won_c_10p:0,lost_c_10p:0,rem_c_10p:29,new_v_10p:785000,won_v_10p:0,lost_v_10p:0,rem_v_10p:5860200,new_c_10m:4,won_c_10m:0,lost_c_10m:1,rem_c_10m:215,new_v_10m:210000,won_v_10m:0,lost_v_10m:58333,rem_v_10m:1984067},{l:"25.12",new_c_30p:7,won_c_30p:0,lost_c_30p:0,rem_c_30p:18,new_v_30p:20519100,won_v_30p:0,lost_v_30p:0,rem_v_30p:237765667,new_c_10p:7,won_c_10p:0,lost_c_10p:0,rem_c_10p:29,new_v_10p:1189000,won_v_10p:0,lost_v_10p:0,rem_v_10p:5860200,new_c_10m:13,won_c_10m:0,lost_c_10m:0,rem_c_10m:215,new_v_10m:608000,won_v_10m:0,lost_v_10m:0,rem_v_10m:1984067},{l:"26.01",new_c_30p:7,won_c_30p:2,lost_c_30p:0,rem_c_30p:18,new_v_30p:11797600,won_v_30p:1814167,lost_v_30p:0,rem_v_30p:237765667,new_c_10p:13,won_c_10p:0,lost_c_10p:0,rem_c_10p:29,new_v_10p:2783000,won_v_10p:0,lost_v_10p:0,rem_v_10p:5860200,new_c_10m:24,won_c_10m:0,lost_c_10m:1,rem_c_10m:215,new_v_10m:632583,won_v_10m:0,lost_v_10m:60000,rem_v_10m:1984067},{l:"26.02",new_c_30p:5,won_c_30p:3,lost_c_30p:11,rem_c_30p:18,new_v_30p:19080000,won_v_30p:2500000,lost_v_30p:16438220,rem_v_30p:237765667,new_c_10p:19,won_c_10p:9,lost_c_10p:15,rem_c_10p:29,new_v_10p:3187600,won_v_10p:1469000,lost_v_10p:2656400,rem_v_10p:5860200,new_c_10m:16,won_c_10m:4,lost_c_10m:20,rem_c_10m:215,new_v_10m:675900,won_v_10m:152000,lost_v_10m:430500,rem_v_10m:1984067}]};
+var periodMode='weekly';
+var TIERS=['30p','10p','10m'];
+var seriesDef={new:{color:'#1976d2',name:'신규'},won:{color:'#2e7d32',name:'성공'},lost:{color:'#c62828',name:'실패'},rem:{color:'#ff8f00',name:'잔여'}};
+function setPeriodMode(m){periodMode=m;document.getElementById('btn-weekly').classList.toggle('active',m==='weekly');document.getElementById('btn-monthly').classList.toggle('active',m==='monthly');drawCharts();}
+function getChecked(cls){var r=[];document.querySelectorAll(cls+' input:checked').forEach(function(el){r.push(el.value)});return r;}
+function fmtMrr(v){var m=Math.round(v/10000);return '\u20a9'+m.toLocaleString()+'\ub9cc';}
+function aggregateByTier(rawData,tiers){
+  return rawData.map(function(d){
+    var out={l:d.l};
+    ['new','won','lost','rem'].forEach(function(k){
+      var sc=0,sv=0;
+      tiers.forEach(function(t){sc+=(d[k+'_c_'+t]||0);sv+=(d[k+'_v_'+t]||0);});
+      out[k+'_c']=sc;out[k+'_v']=sv;
+    });
+    return out;
+  });
+}
+function drawSVG(container,data,keys,field,fmtFn){
+  var W=850,H=250,pL=60,pR=20,pT=35,pB=40,cW=W-pL-pR,cH=H-pT-pB,n=data.length;
+  if(n<2){container.innerHTML='<p style="color:#999">데이터 부족</p>';return;}
+  var maxV=1;keys.forEach(function(k){data.forEach(function(d){var v=d[k+'_'+field];if(v>maxV)maxV=v;});});
+  var s='<svg width="'+W+'" height="'+H+'" viewBox="0 0 '+W+' '+H+'" style="display:block;max-width:100%">';
+  s+='<rect x="'+pL+'" y="'+pT+'" width="'+cW+'" height="'+cH+'" fill="#fafafa" rx="4"/>';
+  for(var i=0;i<5;i++){var y=pT+cH*i/4,val=maxV*(4-i)/4;var lt=field==='c'?Math.round(val)+'\uac74':fmtMrr(val);s+='<line x1="'+pL+'" y1="'+y+'" x2="'+(pL+cW)+'" y2="'+y+'" stroke="#e0e0e0"/>';s+='<text x="'+(pL-8)+'" y="'+(y+4)+'" text-anchor="end" font-size="10" fill="#999">'+lt+'</text>';}
+  for(var i=0;i<n;i++){var x=pL+cW*i/(n-1);s+='<text x="'+x+'" y="'+(H-8)+'" text-anchor="middle" font-size="10" fill="#999">'+data[i].l+'</text>';}
+  keys.forEach(function(k){var sd=seriesDef[k],pts=[];for(var i=0;i<n;i++){var x=pL+cW*i/(n-1),v=data[i][k+'_'+field],y=pT+cH*(1-v/maxV);pts.push([x,y,v]);}
+    var path='';pts.forEach(function(p,i){path+=(i===0?'M':'L')+p[0].toFixed(1)+','+p[1].toFixed(1);});
+    s+='<path d="'+path+'" fill="none" stroke="'+sd.color+'" stroke-width="2.5" stroke-linejoin="round"/>';
+    pts.forEach(function(p){s+='<circle cx="'+p[0].toFixed(1)+'" cy="'+p[1].toFixed(1)+'" r="4" fill="'+sd.color+'" stroke="#fff" stroke-width="1.5"/>';var dv=field==='c'?p[2]:fmtMrr(p[2]);s+='<text x="'+p[0].toFixed(1)+'" y="'+(p[1]-9)+'" text-anchor="middle" font-size="9" fill="'+sd.color+'" font-weight="600">'+dv+'</text>';});
+  });
+  var lx=pL;keys.forEach(function(k){var sd=seriesDef[k];s+='<rect x="'+lx+'" y="8" width="12" height="12" rx="2" fill="'+sd.color+'"/>';s+='<text x="'+(lx+16)+'" y="18" font-size="11" fill="#555">'+sd.name+'</text>';lx+=sd.name.length*14+30;});
+  s+='</svg>';container.innerHTML=s;
+}
+function drawTable(data,colLabel){
+  var h='<table class="trend-table"><tr><th>'+colLabel+'</th><th>신규</th><th>성공</th><th>실패</th><th>잔여</th><th>성공MRR</th><th>실패MRR</th></tr>';
+  data.forEach(function(d){
+    h+='<tr><td>'+d.l+'</td><td>'+d.new_c+'건</td><td>'+d.won_c+'건</td><td>'+d.lost_c+'건</td><td>'+d.rem_c+'건</td><td>'+fmtMrr(d.won_v)+'</td><td>'+fmtMrr(d.lost_v)+'</td></tr>';
+  });
+  h+='</table>';
+  document.getElementById('trend-table').innerHTML=h;
+}
+function drawCharts(){
+  var rawData=trendData[periodMode];
+  var keys=getChecked('.item-checks');
+  var tiers=getChecked('.tier-checks');
+  var data=aggregateByTier(rawData,tiers);
+  var label=periodMode==='weekly'?'주간 (최근 12주)':'월간 (최근 12개월)';
+  var colLabel=periodMode==='weekly'?'주':'월';
+  document.getElementById('chart-count-title').innerHTML='&#x1F4C8; 건수 추세 — '+label;
+  document.getElementById('chart-mrr-title').innerHTML='&#x1F4B0; MRR 추세 — '+label;
+  drawSVG(document.getElementById('chart-count'),data,keys,'c',function(v){return v+'건'});
+  drawSVG(document.getElementById('chart-mrr'),data,keys,'v',fmtMrr);
+  drawTable(data,colLabel);
+}
+drawCharts();
+</script></div>
 
 <div class="footer">MRR = Pipedrive ARR / 12 &nbsp;|&nbsp; KRW 딜만 집계 &nbsp;|&nbsp; 성공/실패율 = 해당건 / (잔여+성공+실패)</div>
 </div>
