@@ -1,0 +1,68 @@
+name: Shopl 영업 보고서 발송
+
+on:
+  schedule:
+    # 매일 자정 KST = UTC 15:00 (대시보드 갱신 + 슬랙 보고서)
+    - cron: '0 15 * * *'
+  workflow_dispatch:
+    inputs:
+      period:
+        description: '보고서 종류 (weekly/monthly)'
+        required: false
+        default: 'weekly'
+
+permissions:
+  contents: write
+
+jobs:
+  report:
+    runs-on: ubuntu-latest
+    steps:
+      - name: 코드 체크아웃
+        uses: actions/checkout@v4
+
+      - name: Python 설치
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: 패키지 설치
+        run: pip install -r requirements.txt
+
+      - name: 주간 보고서 발송 (월요일)
+        if: github.event_name == 'schedule' || (github.event_name == 'workflow_dispatch' && github.event.inputs.period == 'weekly')
+        env:
+          PIPEDRIVE_API_TOKEN: ${{ secrets.PIPEDRIVE_API_TOKEN }}
+          SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
+        run: |
+          KST_DOW=$(date -u -d "+9 hours" +%u)
+          if [ "$KST_DOW" = "1" ] || [ "${{ github.event_name }}" = "workflow_dispatch" ]; then
+            python shopl_sales_report.py --period weekly
+          else
+            echo "KST 월요일이 아니므로 주간 보고서 건너뜀"
+          fi
+
+      - name: 월간 보고서 발송 (1일)
+        if: github.event_name == 'schedule' || (github.event_name == 'workflow_dispatch' && github.event.inputs.period == 'monthly')
+        env:
+          PIPEDRIVE_API_TOKEN: ${{ secrets.PIPEDRIVE_API_TOKEN }}
+          SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
+        run: |
+          KST_DAY=$(date -u -d "+9 hours" +%d)
+          if [ "$KST_DAY" = "01" ] || [ "${{ github.event_name }}" = "workflow_dispatch" ]; then
+            python shopl_sales_report.py --period monthly
+          else
+            echo "KST 1일이 아니므로 월간 보고서 건너뜀"
+          fi
+
+      # HTML 대시보드 페이지 생성 & 배포
+      - name: HTML 대시보드 생성
+        env:
+          PIPEDRIVE_API_TOKEN: ${{ secrets.PIPEDRIVE_API_TOKEN }}
+        run: python shopl_sales_report.py --generate-page
+
+      - name: GitHub Pages 배포
+        uses: peaceiris/actions-gh-pages@v4
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: ./docs
