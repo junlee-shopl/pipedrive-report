@@ -1,18 +1,16 @@
 // Shopl 영업 보고서 대시보드 — IP 제한 프록시
 // 허용 IP 목록에 없으면 403 반환
-
-const ALLOWED_IPS = [
-  "OFFICE_IP", // Shopl Office IP
-];
+// 환경변수 ALLOWED_IPS: 쉼표 구분 IP 목록 (Cloudflare Worker Secret)
 
 const ORIGIN = "https://junlee-shopl.github.io";
 const PATH_PREFIX = "/pipedrive-report";
 
 export default {
-  async fetch(request) {
+  async fetch(request, env) {
+    const allowedIPs = (env.ALLOWED_IPS || "").split(",").map(ip => ip.trim()).filter(Boolean);
     const clientIP = request.headers.get("CF-Connecting-IP");
 
-    if (!ALLOWED_IPS.includes(clientIP)) {
+    if (!allowedIPs.includes(clientIP)) {
       return new Response(
         `<!DOCTYPE html><html><head><meta charset="utf-8"><title>접근 제한</title></head>
         <body style="font-family:sans-serif;display:flex;justify-content:center;align-items:center;height:100vh;margin:0;background:#f5f5f5">
