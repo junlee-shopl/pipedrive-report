@@ -2,12 +2,8 @@ name: Shopl 영업 보고서 발송
 
 on:
   schedule:
-    # 대시보드 갱신: 매일 자정 KST (UTC 15:00)
-    - cron: '0 15 * * *'
-    # 주간 슬랙 보고서: 매주 월요일 오전 9시 KST (UTC 00:00)
-    - cron: '0 0 * * 1'
-    # 월간 슬랙 보고서: 매월 1일 오전 9시 KST (UTC 00:00)
-    - cron: '0 0 1 * *'
+    # 매일 오전 7시 KST (UTC 22:00 전날) — 대시보드 갱신 + 요일/날짜 조건 슬랙 발송
+    - cron: '0 22 * * *'
   workflow_dispatch:
     inputs:
       period:
@@ -33,23 +29,31 @@ jobs:
       - name: 패키지 설치
         run: pip install -r requirements.txt
 
-      - name: 주간 슬랙 보고서 발송
-        if: |
-          (github.event_name == 'schedule' && github.event.schedule == '0 0 * * 1') ||
-          (github.event_name == 'workflow_dispatch' && github.event.inputs.period == 'weekly')
+      - name: 주간 슬랙 보고서 발송 (월요일 오전 7시 KST)
+        if: github.event_name == 'schedule' || (github.event_name == 'workflow_dispatch' && github.event.inputs.period == 'weekly')
         env:
           PIPEDRIVE_API_TOKEN: ${{ secrets.PIPEDRIVE_API_TOKEN }}
           SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
-        run: python shopl_sales_report.py --period weekly
+        run: |
+          KST_DOW=$(TZ=Asia/Seoul date +%u)
+          if [ "$KST_DOW" = "1" ] || [ "${{ github.event_name }}" = "workflow_dispatch" ]; then
+            python shopl_sales_report.py --period weekly
+          else
+            echo "KST 월요일이 아니므로 주간 보고서 건너뜀 (요일: $KST_DOW)"
+          fi
 
-      - name: 월간 슬랙 보고서 발송
-        if: |
-          (github.event_name == 'schedule' && github.event.schedule == '0 0 1 * *') ||
-          (github.event_name == 'workflow_dispatch' && github.event.inputs.period == 'monthly')
+      - name: 월간 슬랙 보고서 발송 (매월 1일 오전 7시 KST)
+        if: github.event_name == 'schedule' || (github.event_name == 'workflow_dispatch' && github.event.inputs.period == 'monthly')
         env:
           PIPEDRIVE_API_TOKEN: ${{ secrets.PIPEDRIVE_API_TOKEN }}
           SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
-        run: python shopl_sales_report.py --period monthly
+        run: |
+          KST_DAY=$(TZ=Asia/Seoul date +%d)
+          if [ "$KST_DAY" = "01" ] || [ "${{ github.event_name }}" = "workflow_dispatch" ]; then
+            python shopl_sales_report.py --period monthly
+          else
+            echo "KST 1일이 아니므로 월간 보고서 건너뜀 (일: $KST_DAY)"
+          fi
 
       - name: HTML 대시보드 생성
         env:
