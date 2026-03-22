@@ -16,8 +16,10 @@ import io
 import requests
 import json
 import argparse
-from datetime import datetime, timedelta, date
+from datetime import datetime, timedelta, date, timezone
 from collections import defaultdict
+
+KST = timezone(timedelta(hours=9))
 
 # Windows 콘솔 UTF-8 출력 보정
 if sys.platform == "win32":
@@ -66,7 +68,7 @@ def get_all_deals():
 
 def get_date_range(period: str):
     """기간에 따라 시작일/종료일 반환. 현재+직전 기간 모두 반환."""
-    today = date.today()
+    today = datetime.now(KST).date()
 
     if period == "daily":
         start = today - timedelta(days=1)
@@ -509,7 +511,7 @@ def build_html_section(total, by_owner, won_deals, lost_deals, period, label):
 
 def get_weekly_ranges(n=8):
     """최근 n주의 (start, end, label) 리스트 반환 (최신이 마지막)."""
-    today = date.today()
+    today = datetime.now(KST).date()
     days_since_monday = today.weekday()
     # 지난주 월요일
     last_monday = today - timedelta(days=days_since_monday + 7)
@@ -524,7 +526,7 @@ def get_weekly_ranges(n=8):
 
 def get_monthly_ranges(n=6):
     """최근 n개월의 (start, end, label) 리스트 반환 (최신이 마지막)."""
-    today = date.today()
+    today = datetime.now(KST).date()
     first_of_this_month = today.replace(day=1)
     last_month_end = first_of_this_month - timedelta(days=1)
     ranges = []
